@@ -545,8 +545,8 @@
             welcomeText: '',
             responseTimeText: '',
             poweredBy: {
-                text: 'Powered by Automate Ai',
-                link: 'https://automateai.co.nz/'
+                text: 'Powered by Oxford Consulting',
+                link: 'https://oxfordconsulting.co.nz/'
             }
         },
         style: {

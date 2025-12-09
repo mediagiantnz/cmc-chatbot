@@ -199,6 +199,6 @@ For technical support or questions:
 
 ---
 
-**Built with ❤️ for the Chinese Medicine Council of New Zealand**
+**Built with ❤️ by Oxford Consulting for the Chinese Medicine Council of New Zealand**
 
 *Empowering traditional medicine practitioners with modern AI technology*
