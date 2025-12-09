@@ -1,7 +1,5 @@
 # CMCNZ Chat Widget
 
-A modern, AI-powered chat widget for the Chinese Medicine Council of New Zealand (CMCNZ) website, built with n8n automation and WordPress integration.
-
 ## 🌟 Features
 
 ### 🎨 **Official CMCNZ Branding**
