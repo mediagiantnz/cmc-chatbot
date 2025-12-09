@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name: Automate Ai Chat Widget
+ * Plugin Name: CMCNZ Chat Widget
  * Description: Adds the n8n chat‑bot widget (Name, Email & Phone) to every public page and provides a settings screen to configure webhook, branding and colours.
- * Author: Automate Ai
+ * Author: Chinese Medicine Council of New Zealand
  * Version: 1.0.1
  * Requires at least: 5.8
  * Requires PHP: 7.4
@@ -12,11 +12,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // No direct access.
 }
 
-class GE_Chat_Widget {
+class CMCNZ_Chat_Widget {
 
-	const OPTION_GROUP   = 'ge_chat_widget_options';
-	const OPTION_NAME    = 'ge_chat_widget';
-	const PAGE_SLUG      = 'ge-chat-widget';
+	const OPTION_GROUP   = 'cmcnz_chat_widget_options';
+	const OPTION_NAME    = 'cmcnz_chat_widget';
+	const PAGE_SLUG      = 'cmcnz-chat-widget';
 
 	/**
 	 * Boot the hooks.
@@ -32,17 +32,17 @@ class GE_Chat_Widget {
 	 */
 	public static function defaults() : array {
 		return [
-			'webhook_url'         => '',
+			'webhook_url'         => 'https://n8n.mediagiant.co.nz/webhook/8b687259-8ff7-46cc-bfc6-9b074adbd368/chat',
 			'webhook_route'       => 'general',
-			'branding_logo'       => '',
-			'branding_name'       => 'Automate Ai',
+			'branding_logo'       => 'https://www.chinesemedicinecouncil.org.nz/images/Logos/CMCNZ_logo_big.png?version=1',
+			'branding_name'       => 'CMCNZ Chat',
 			'branding_welcome'    => 'Get instant answers to your questions!',
-			'branding_response'   => 'Click the button below to start chatting',
-			'primary_color'       => '#c48c4f',
-			'secondary_color'     => '#059669',
+			'branding_response'   => 'Get instant AI-powered responses',
+			'primary_color'       => '#5bbfbf',
+			'secondary_color'     => '#c4a882',
 			'position'            => 'right', // left/right
 			'background_color'    => '#ffffff',
-			'font_color'          => '#1f2937',
+			'font_color'          => '#4a4a4a',
 			'suggested_questions' => '', // comma‑separated
 		];
 	}
@@ -112,7 +112,7 @@ class GE_Chat_Widget {
 	 * Render settings page markup.
 	 */
 	public static function render_settings_page() {
-		echo '<div class="wrap"><h1>Automate Ai – Chat Widget</h1><form method="post" action="options.php">';
+		echo '<div class="wrap"><h1>CMCNZ Chat Widget</h1><form method="post" action="options.php">';
 		settings_fields( self::OPTION_GROUP );
 		do_settings_sections( self::PAGE_SLUG );
 		submit_button();
@@ -163,4 +163,4 @@ class GE_Chat_Widget {
 	}
 }
 
-GE_Chat_Widget::init();
+CMCNZ_Chat_Widget::init();

@@ -14,17 +14,17 @@
     const widgetStyles = document.createElement('style');
     widgetStyles.textContent = `
         .chat-assist-widget {
-            --chat-color-primary: var(--chat-widget-primary, #10b981);
-            --chat-color-secondary: var(--chat-widget-secondary, #059669);
-            --chat-color-tertiary: var(--chat-widget-tertiary, #047857);
-            --chat-color-light: var(--chat-widget-light, #d1fae5);
+            --chat-color-primary: var(--chat-widget-primary, #5bbfbf);
+            --chat-color-secondary: var(--chat-widget-secondary, #c4a882);
+            --chat-color-tertiary: var(--chat-widget-tertiary, #4a4a4a);
+            --chat-color-light: var(--chat-widget-light, #e7f4f4);
             --chat-color-surface: var(--chat-widget-surface, #ffffff);
-            --chat-color-text: var(--chat-widget-text, #1f2937);
-            --chat-color-text-light: var(--chat-widget-text-light, #6b7280);
-            --chat-color-border: var(--chat-widget-border, #e5e7eb);
-            --chat-shadow-sm: 0 1px 3px rgba(16, 185, 129, 0.1);
-            --chat-shadow-md: 0 4px 6px rgba(16, 185, 129, 0.15);
-            --chat-shadow-lg: 0 10px 15px rgba(16, 185, 129, 0.2);
+            --chat-color-text: var(--chat-widget-text, #4a4a4a);
+            --chat-color-text-light: var(--chat-widget-text-light, #6b6b6b);
+            --chat-color-border: var(--chat-widget-border, #d4e6e6);
+            --chat-shadow-sm: 0 1px 3px rgba(91, 191, 191, 0.1);
+            --chat-shadow-md: 0 4px 6px rgba(91, 191, 191, 0.15);
+            --chat-shadow-lg: 0 10px 15px rgba(91, 191, 191, 0.2);
             --chat-radius-sm: 8px;
             --chat-radius-md: 12px;
             --chat-radius-lg: 20px;
@@ -550,11 +550,11 @@
             }
         },
         style: {
-            primaryColor: '#c48c4f', // Green
-            secondaryColor: '#e0c359', // Darker green
+            primaryColor: '#5bbfbf', // Teal/Turquoise
+            secondaryColor: '#c4a882', // Tan/Beige accent
             position: 'right',
             backgroundColor: '#ffffff',
-            fontColor: '#1f2937'
+            fontColor: '#4a4a4a'
         },
         suggestedQuestions: [] // Default empty array for suggested questions
     };
@@ -619,14 +619,11 @@
                     <div class="error-text" id="name-error"></div>
                 </div>
                 <div class="form-field">
-                    <label class="form-label" for="chat-user-email">Email</label>
-                    <input type="email" id="chat-user-email" class="form-input" placeholder="Your email address" required>
-                    <div class="error-text" id="email-error"></div>
-                </div>
-                <div class="form-field">
-                    <label class="form-label" for="chat-user-phone">Phone Number</label>
-                    <input type="tel" id="chat-user-phone" class="form-input" placeholder="Your phone number" required>
-                    <div class="error-text" id="phone-error"></div>
+                    <label class="form-label" for="chat-user-language">Language</label>
+                    <select id="chat-user-language" class="form-input" required>
+                        <option value="english">English</option>
+                        <option value="chinese">中文 (Chinese)</option>
+                    </select>
                 </div>
                 <button type="submit" class="submit-registration">Continue to Chat</button>
             </form>
@@ -680,11 +677,8 @@
     const userRegistration = chatWindow.querySelector('.user-registration');
     const chatWelcome = chatWindow.querySelector('.chat-welcome');
     const nameInput = chatWindow.querySelector('#chat-user-name');
-    const emailInput = chatWindow.querySelector('#chat-user-email');
+    const languageInput = chatWindow.querySelector('#chat-user-language');
     const nameError = chatWindow.querySelector('#name-error');
-    const emailError = chatWindow.querySelector('#email-error');
-    const phoneInput = chatWindow.querySelector('#chat-user-phone');
-    const phoneError = chatWindow.querySelector('#phone-error');
 
     // Helper function to generate unique session ID
     function createSessionId() {
@@ -701,6 +695,25 @@
             <div class="typing-dot"></div>
         `;
         return indicator;
+    }
+
+    // Get suggested questions based on language
+    function getSuggestedQuestions(language) {
+        const questions = {
+            english: [
+                'How do I register as a practitioner?',
+                'What are the accreditation requirements?',
+                'How can I find continuing professional development?',
+                'What are the professional standards?'
+            ],
+            chinese: [
+                '如何注册成为从业者？',
+                '认证要求是什么？',
+                '如何找到继续专业发展机会？',
+                '专业标准是什么？'
+            ]
+        };
+        return questions[language] || questions.english;
     }
 
     // Function to convert URLs in text to clickable links
@@ -729,65 +742,34 @@
     // Handle registration form submission
     async function handleRegistration(event) {
         event.preventDefault();
-        
+
         // Reset error messages
         nameError.textContent = '';
-        emailError.textContent = '';
-        phoneError.textContent = '';
         nameInput.classList.remove('error');
-        emailInput.classList.remove('error');
-        phoneInput.classList.remove('error');
-        
+
         // Get values
         const name = nameInput.value.trim();
-        const email = emailInput.value.trim();
-        const phone = phoneInput.value.trim();
-        
+        const language = languageInput.value;
+
         // Validate
-        let isValid = true;
-        
         if (!name) {
             nameError.textContent = 'Please enter your name';
             nameInput.classList.add('error');
-            isValid = false;
+            return;
         }
-        
-        if (!email) {
-            emailError.textContent = 'Please enter your email';
-            emailInput.classList.add('error');
-            isValid = false;
-        } else if (!isValidEmail(email)) {
-            emailError.textContent = 'Please enter a valid email address';
-            emailInput.classList.add('error');
-            isValid = false;
-        }
-        
-        if (!phone) {
-            phoneError.textContent = 'Please enter your phone number';
-            phoneInput.classList.add('error');
-            isValid = false;
-        }
-        // Basic phone validation (e.g., at least 7 digits) - you might want a more robust regex
-        else if (phone.replace(/\D/g, '').length < 7) {
-            phoneError.textContent = 'Please enter a valid phone number';
-            phoneInput.classList.add('error');
-            isValid = false;
-        }
-        
-        if (!isValid) return;
         
         // Initialize conversation with user data
         conversationId = createSessionId();
-        
+
         // First, load the session
         const sessionData = [{
             action: "loadPreviousSession",
             sessionId: conversationId,
             route: settings.webhook.route,
             metadata: {
-                userId: email,
+                userId: name,
                 userName: name,
-                userPhone: phone
+                userLanguage: language
             }
         }];
 
@@ -795,11 +777,11 @@
             // Hide registration form, show chat interface
             userRegistration.classList.remove('active');
             chatBody.classList.add('active');
-            
+
             // Show typing indicator
             const typingIndicator = createTypingIndicator();
             messagesContainer.appendChild(typingIndicator);
-            
+
             // Load session
             const sessionResponse = await fetch(settings.webhook.url, {
                 method: 'POST',
@@ -808,21 +790,21 @@
                 },
                 body: JSON.stringify(sessionData)
             });
-            
+
             const sessionResponseData = await sessionResponse.json();
-            
+
             // Send user info as first message
-            const userInfoMessage = `Name: ${name}\nEmail: ${email}\nPhone: ${phone}`;
-            
+            const userInfoMessage = `Name: ${name}\nLanguage: ${language}`;
+
             const userInfoData = {
                 action: "sendMessage",
                 sessionId: conversationId,
                 route: settings.webhook.route,
                 chatInput: userInfoMessage,
                 metadata: {
-                    userId: email,
+                    userId: name,
                     userName: name,
-                    userPhone: phone,
+                    userLanguage: language,
                     isUserInfo: true
                 }
             };
@@ -849,12 +831,13 @@
             botMessage.innerHTML = linkifyText(messageText);
             messagesContainer.appendChild(botMessage);
             
-            // Add sample questions if configured
-            if (settings.suggestedQuestions && Array.isArray(settings.suggestedQuestions) && settings.suggestedQuestions.length > 0) {
+            // Add sample questions based on language
+            const suggestedQuestions = getSuggestedQuestions(language);
+            if (suggestedQuestions && suggestedQuestions.length > 0) {
                 const suggestedQuestionsContainer = document.createElement('div');
                 suggestedQuestionsContainer.className = 'suggested-questions';
-                
-                settings.suggestedQuestions.forEach(question => {
+
+                suggestedQuestions.forEach(question => {
                     const questionButton = document.createElement('button');
                     questionButton.className = 'suggested-question-btn';
                     questionButton.textContent = question;
@@ -867,7 +850,7 @@
                     });
                     suggestedQuestionsContainer.appendChild(questionButton);
                 });
-                
+
                 messagesContainer.appendChild(suggestedQuestionsContainer);
             }
             
@@ -893,23 +876,22 @@
     // Send a message to the webhook
     async function submitMessage(messageText) {
         if (isWaitingForResponse) return;
-        
+
         isWaitingForResponse = true;
-        
+
         // Get user info if available
-        const email = nameInput ? nameInput.value.trim() : "";
-        const name = emailInput ? emailInput.value.trim() : "";
-        const phone = phoneInput ? phoneInput.value.trim() : "";
-        
+        const name = nameInput ? nameInput.value.trim() : "";
+        const language = languageInput ? languageInput.value : "english";
+
         const requestData = {
             action: "sendMessage",
             sessionId: conversationId,
             route: settings.webhook.route,
             chatInput: messageText,
             metadata: {
-                userId: email,
+                userId: name,
                 userName: name,
-                userPhone: phone
+                userLanguage: language
             }
         };
 

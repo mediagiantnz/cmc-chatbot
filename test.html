@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CMCNZ Chat Widget Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .header {
+            background: linear-gradient(135deg, #5bbfbf 0%, #c4a882 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        .header p {
+            margin: 10px 0 0 0;
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        .content {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .instructions {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 4px solid #5bbfbf;
+        }
+        .instructions h2 {
+            margin-top: 0;
+            color: #4a4a4a;
+        }
+        .mock-content {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        .mock-section {
+            margin-bottom: 20px;
+        }
+        .mock-section h3 {
+            color: #4a4a4a;
+            margin-bottom: 10px;
+        }
+        .mock-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+        .mock-btn {
+            background: linear-gradient(135deg, #5bbfbf 0%, #c4a882 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: transform 0.2s;
+        }
+        .mock-btn:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Chinese Medicine Council of New Zealand</h1>
+            <p>Chat Widget Test Page</p>
+        </div>
+
+        <div class="content">
+            <div class="instructions">
+                <h2>Testing Instructions</h2>
+                <p><strong>Click the chat button</strong> (bottom right) to open the CMCNZ chat widget.</p>
+                <p>The widget uses the official CMCNZ brand colors:</p>
+                <ul>
+                    <li><strong>Teal (#5bbfbf):</strong> Primary brand color for buttons and headers</li>
+                    <li><strong>Tan/Beige (#c4a882):</strong> Secondary accent color</li>
+                    <li><strong>Dark Grey (#4a4a4a):</strong> Text and navigation</li>
+                    <li><strong>White (#ffffff):</strong> Background</li>
+                </ul>
+                <p><em>Note: Since this is a local test, message sending will show an error, but the UI and styling should work perfectly.</em></p>
+            </div>
+
+            <div class="mock-content">
+                <div class="mock-section">
+                    <h3>Sample Content - About Chinese Medicine</h3>
+                    <p>The Chinese Medicine Council of New Zealand (CMCNZ) is the professional regulatory body for practitioners of Chinese medicine in New Zealand. We ensure that practitioners meet high standards of competence and conduct.</p>
+                </div>
+
+                <div class="mock-section">
+                    <h3>Our Services</h3>
+                    <p>We provide registration, accreditation, and continuing professional development for Chinese medicine practitioners across New Zealand.</p>
+                </div>
+
+                <div class="mock-buttons">
+                    <button class="mock-btn">Contact Us</button>
+                    <button class="mock-btn">Find a Practitioner</button>
+                    <button class="mock-btn">Registration Info</button>
+                    <button class="mock-btn">Professional Standards</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CMCNZ Chat Widget Configuration -->
+    <script>
+        // Configure the chat widget for testing
+        window.ChatWidgetConfig = {
+            webhook: {
+                url: 'https://n8n.mediagiant.co.nz/webhook/8b687259-8ff7-46cc-bfc6-9b074adbd368/chat',
+                route: 'general'
+            },
+            branding: {
+                logo: 'https://www.chinesemedicinecouncil.org.nz/images/Logos/CMCNZ_logo_big.png?version=1',
+                name: 'CMCNZ Chat',
+                welcomeText: 'How can we help you today?',
+                responseTimeText: 'Get instant AI-powered responses',
+                poweredBy: {
+                    text: 'Powered by CMCNZ',
+                    link: '#'
+                }
+            },
+            style: {
+                primaryColor: '#5bbfbf',    // CMCNZ Teal
+                secondaryColor: '#c4a882',  // CMCNZ Tan/Beige
+                position: 'right',
+                backgroundColor: '#ffffff', // White background
+                fontColor: '#4a4a4a'        // CMCNZ Dark Grey
+            }
+        };
+    </script>
+
+    <!-- Include the chat widget script -->
+    <script src="cmcnz-chatbot.js"></script>
+</body>
+</html>
