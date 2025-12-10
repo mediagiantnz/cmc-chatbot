@@ -618,13 +618,6 @@
                     <input type="text" id="chat-user-name" class="form-input" placeholder="Your name" required>
                     <div class="error-text" id="name-error"></div>
                 </div>
-                <div class="form-field">
-                    <label class="form-label" for="chat-user-language">Language</label>
-                    <select id="chat-user-language" class="form-input" required>
-                        <option value="english">English</option>
-                        <option value="chinese">中文 (Chinese)</option>
-                    </select>
-                </div>
                 <button type="submit" class="submit-registration">Continue to Chat</button>
             </form>
         </div>
@@ -677,7 +670,6 @@
     const userRegistration = chatWindow.querySelector('.user-registration');
     const chatWelcome = chatWindow.querySelector('.chat-welcome');
     const nameInput = chatWindow.querySelector('#chat-user-name');
-    const languageInput = chatWindow.querySelector('#chat-user-language');
     const nameError = chatWindow.querySelector('#name-error');
 
     // Helper function to generate unique session ID
@@ -697,23 +689,14 @@
         return indicator;
     }
 
-    // Get suggested questions based on language
-    function getSuggestedQuestions(language) {
-        const questions = {
-            english: [
-                'How do I register as a practitioner?',
-                'What are the accreditation requirements?',
-                'How can I find continuing professional development?',
-                'What are the professional standards?'
-            ],
-            chinese: [
-                '如何注册成为从业者？',
-                '认证要求是什么？',
-                '如何找到继续专业发展机会？',
-                '专业标准是什么？'
-            ]
-        };
-        return questions[language] || questions.english;
+    // Get suggested questions
+    function getSuggestedQuestions() {
+        return [
+            'How do I register as a practitioner?',
+            'What are the accreditation requirements?',
+            'How can I find continuing professional development?',
+            'What are the professional standards?'
+        ];
     }
 
     // Function to convert URLs in text to clickable links
@@ -749,7 +732,7 @@
 
         // Get values
         const name = nameInput.value.trim();
-        const language = languageInput.value;
+        const language = 'english';
 
         // Validate
         if (!name) {
@@ -831,8 +814,8 @@
             botMessage.innerHTML = linkifyText(messageText);
             messagesContainer.appendChild(botMessage);
             
-            // Add sample questions based on language
-            const suggestedQuestions = getSuggestedQuestions(language);
+            // Add sample questions
+            const suggestedQuestions = getSuggestedQuestions();
             if (suggestedQuestions && suggestedQuestions.length > 0) {
                 const suggestedQuestionsContainer = document.createElement('div');
                 suggestedQuestionsContainer.className = 'suggested-questions';
@@ -881,7 +864,7 @@
 
         // Get user info if available
         const name = nameInput ? nameInput.value.trim() : "";
-        const language = languageInput ? languageInput.value : "english";
+        const language = "english";
 
         const requestData = {
             action: "sendMessage",

@@ -7,11 +7,6 @@
 - **Logo**: Official CMCNZ logo integration
 - **Typography**: Modern Poppins font family
 
-### 🗣️ **Multilingual Support**
-- **English** and **Chinese (中文)** language options
-- **Language-specific suggested questions**
-- **Backend language preference tracking**
-
 ### 🤖 **AI-Powered Responses**
 - **Instant responses** (no more 24-hour wait times)
 - **Intelligent conversation flow**
@@ -82,10 +77,9 @@ window.ChatWidgetConfig = {
 ## 🎯 User Flow
 
 1. **Launcher Click**: User clicks the chat button (bottom-right)
-2. **Language Selection**: Choose English or Chinese
-3. **Registration**: Enter name only (simplified)
-4. **AI Chat**: Instant responses with contextual suggestions
-5. **Language-Based Questions**: Dynamic suggestions in selected language
+2. **Registration**: Enter name only (simplified)
+3. **AI Chat**: Instant responses with contextual suggestions
+4. **Suggested Questions**: Helpful questions to get started
 
 ## 🔧 Technical Details
 
@@ -122,19 +116,12 @@ window.ChatWidgetConfig = {
 }
 ```
 
-## 🌐 Multilingual Content
+## 💬 Suggested Questions
 
-### English Questions
 - How do I register as a practitioner?
 - What are the accreditation requirements?
 - How can I find continuing professional development?
 - What are the professional standards?
-
-### Chinese Questions (中文)
-- 如何注册成为从业者？
-- 认证要求是什么？
-- 如何找到继续专业发展机会？
-- 专业标准是什么？
 
 ## 🎨 Design System
 
@@ -192,7 +179,7 @@ For technical support or questions:
 
 ## 🔄 Updates
 
-- **v1.0.1**: Initial release with multilingual support
+- **v1.0.1**: Initial release with AI-powered chat
 - **v1.0.0**: Basic chatbot functionality
 
 ---
